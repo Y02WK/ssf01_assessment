@@ -14,11 +14,11 @@
   </head>
   <body>
     <h1 data-th-text="|Search result for '${searchQuery}'|"></h1>
-    <ul>
+    <ol>
       <li data-th-each="book : ${results}">
         <a data-th-href="${book.worksId}" data-th-text="${book.title}"></a>
       </li>
-    </ul>
+    </ol>
     <a href="/" class="btn btn-dark m-2" role="button">Back to home</a>
   </body>
 </html>

@@ -14,11 +14,18 @@
   </head>
   <body>
     <p data-th-text="|Title: ${book.title}|"></p>
-    <p data-th-text="|Description: ${book.desc}|"></p>
-    <p data-th-text="|Excerpt: ${book.excerpt}|"></p>
+
     <p
-      data-th-if="${book.isCached != null}"
-      data-th-text="|Cached: ${book.isCached}|"
+      data-th-if="${book.desc != null}"
+      data-th-text="|Description: ${book.desc}|"
     ></p>
+    <p data-th-if="${book.desc == null}">No description found!</p>
+
+    <p
+      data-th-if="${book.excerpt != 'null'}"
+      data-th-text="|Excerpt: ${book.excerpt}|"
+    ></p>
+    <p data-th-if="${book.excerpt == 'null'}">Excerpt: No excerpt found!</p>
+    <p data-th-text="|Cached: ${book.isCached}|"></p>
   </body>
 </html>

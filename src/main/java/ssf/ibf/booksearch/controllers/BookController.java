@@ -3,6 +3,7 @@ package ssf.ibf.booksearch.controllers;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,7 @@ import ssf.ibf.booksearch.models.Book;
 @RequestMapping(path = "/book", produces = MediaType.TEXT_HTML_VALUE)
 public class BookController {
     @Autowired
+    @Qualifier("BOOK_CACHE")
     private BookService bookService;
 
     @GetMapping(path = "{worksID}")

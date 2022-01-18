@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -27,9 +29,13 @@ import jakarta.json.JsonReader;
 import ssf.ibf.booksearch.interfaces.BookService;
 import ssf.ibf.booksearch.models.Book;
 import ssf.ibf.booksearch.models.QueryResult;
+import ssf.ibf.booksearch.utils.BookUtil;
 
 @Service // Non caching
+@Primary
 public class BookServiceImpl implements BookService {
+    @Autowired
+    private BookUtil bookUtil;
 
     private Logger logger = Logger.getLogger(BookServiceImpl.class.getName());
 
@@ -88,11 +94,15 @@ public class BookServiceImpl implements BookService {
         logger.info(jsonObject.toString());
         Book book = new Book();
         book.setTitle(jsonObject.getString("title"));
-        book.setDesc(jsonObject.getString("description"));
-        JsonArray excerpts = jsonObject.getJsonArray("excerpts");
-        JsonObject firstExcerpt = excerpts.getJsonObject(0);
-        book.setExcerpt(firstExcerpt.getString("excerpt"));
+
+        if (jsonObject.containsKey("description")) {
+            book.setDesc(jsonObject.getString("description"));
+        }
+        if (jsonObject.containsKey("excerpts") && jsonObject.getJsonArray("excerpts").size() > 1) {
+            JsonArray excerpts = jsonObject.getJsonArray("excerpts");
+            JsonObject firstExcerpt = excerpts.getJsonObject(0);
+            book.setExcerpt(firstExcerpt.getString("excerpt"));
+        }
         return book;
     }
-
 }

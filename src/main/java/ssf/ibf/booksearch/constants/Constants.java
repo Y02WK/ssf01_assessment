@@ -15,4 +15,7 @@ public class Constants {
     // for BookService buildRequest()
     public final static String BOOK = "BOOK";
     public final static String SEARCH = "SEARCH";
+
+    // for joining and splitting books
+    public final static String DELIMITER = "\\|";
 }

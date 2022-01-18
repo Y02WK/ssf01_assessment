@@ -4,7 +4,17 @@ public class Book {
     private String title;
     private String desc;
     private String excerpt;
-    private boolean isCached;
+    private boolean isCached = false;
+
+    public Book(String[] bookParams) {
+        this.title = bookParams[0];
+        this.desc = bookParams[1];
+        this.excerpt = bookParams[2];
+        this.isCached = true;
+    }
+
+    public Book() {
+    }
 
     public String getTitle() {
         return this.title;
@@ -42,4 +52,8 @@ public class Book {
         this.isCached = isCached;
     }
 
+    @Override
+    public String toString() {
+        return String.join("|", this.title, this.desc, this.excerpt);
+    }
 }
