@@ -23,7 +23,7 @@ public class BookUtil {
                         desc = descObj.getString("value");
                     }
                 } catch (ClassCastException e2) {
-                    return "";
+                    logger.info("Book description not found");
                 }
             }
         }
@@ -40,7 +40,6 @@ public class BookUtil {
                 return firstExcerpt.getString("excerpt");
             } catch (ClassCastException e) {
                 logger.info("Book excerpt not found");
-                return "";
             }
         }
         return "";
