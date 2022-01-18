@@ -103,7 +103,9 @@ public class BookServiceImpl implements BookService {
             book.setExcerpt(excerpt);
         }
 
-        book.setCover(jsonObject.getJsonArray("covers").get(0).toString());
+        if (jsonObject.containsKey("covers")) {
+            book.setCover(jsonObject.getJsonArray("covers").get(0).toString());
+        }
         return book;
     }
 }

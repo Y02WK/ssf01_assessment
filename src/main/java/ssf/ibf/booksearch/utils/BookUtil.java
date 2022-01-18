@@ -29,7 +29,6 @@ public class BookUtil {
     public String checkForExcerpt(JsonObject jsonObj) {
         if (jsonObj.containsKey("excerpts") && jsonObj.getJsonArray("excerpts").size() >= 1) {
             JsonArray excerpts = jsonObj.getJsonArray("excerpts");
-            logger.info("LOOK HERE" + excerpts.toString());
             JsonObject firstExcerpt = excerpts.getJsonObject(0);
             return firstExcerpt.getString("excerpt");
         }
