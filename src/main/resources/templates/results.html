@@ -21,7 +21,7 @@
         <li data-th-if="${results.size() > 0}" data-th-each="book : ${results}">
           <a data-th-href="${book.worksId}" data-th-text="${book.title}"></a>
         </li>
-        <p data-th-if="${results.size() == 0}">NO RESULTS FOUND!</p>
+        <p data-th-if="${results.size() == 0}">NO RESULTS FOUND! &#9785;</p>
       </ol>
     </div>
     <div class="d-flex justify-content-center">
