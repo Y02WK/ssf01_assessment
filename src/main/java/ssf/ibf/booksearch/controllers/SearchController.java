@@ -30,7 +30,7 @@ public class SearchController {
             e.printStackTrace();
             return "error";
         }
-        model.addAttribute("seachQuery", searchQuery);
+        model.addAttribute("searchQuery", searchQuery);
         model.addAttribute("results", bookResults);
         return "results";
     }
