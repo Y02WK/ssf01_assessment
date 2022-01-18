@@ -16,6 +16,9 @@ public class Constants {
     public final static String BOOK = "BOOK";
     public final static String SEARCH = "SEARCH";
 
-    // for joining and splitting books
+    // for joining and splitting books data stored in Redis
     public final static String DELIMITER = "\\|";
+
+    // for use in Book model
+    public final static String NOT_FOUND = "NOT_FOUND";
 }
