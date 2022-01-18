@@ -17,9 +17,13 @@ public class BookUtil {
             try {
                 desc = jsonObj.getString("description");
             } catch (ClassCastException e) {
-                if (jsonObj.getJsonObject("description").containsKey("value")) {
-                    JsonObject descObj = jsonObj.getJsonObject("description");
-                    desc = descObj.getString("value");
+                try {
+                    if (jsonObj.getJsonObject("description").containsKey("value")) {
+                        JsonObject descObj = jsonObj.getJsonObject("description");
+                        desc = descObj.getString("value");
+                    }
+                } catch (ClassCastException e2) {
+                    return "";
                 }
             }
         }
@@ -29,12 +33,16 @@ public class BookUtil {
 
     public String checkForExcerpt(JsonObject jsonObj) {
         if (jsonObj.containsKey("excerpts") && jsonObj.getJsonArray("excerpts").size() >= 1) {
-            JsonArray excerpts = jsonObj.getJsonArray("excerpts");
-            JsonObject firstExcerpt = excerpts.getJsonObject(0);
-            logger.info("Book Excerpt: " + firstExcerpt.getString("excerpt"));
-            return firstExcerpt.getString("excerpt");
+            try {
+                JsonArray excerpts = jsonObj.getJsonArray("excerpts");
+                JsonObject firstExcerpt = excerpts.getJsonObject(0);
+                logger.info("Book Excerpt: " + firstExcerpt.getString("excerpt"));
+                return firstExcerpt.getString("excerpt");
+            } catch (ClassCastException e) {
+                logger.info("Book excerpt not found");
+                return "";
+            }
         }
-        logger.info("Book excerpt not found");
         return "";
     }
 }
