@@ -95,15 +95,18 @@ public class BookServiceImpl implements BookService {
 
         String desc = bookUtil.checkForDesc(jsonObject);
         if (!desc.isEmpty()) {
+            logger.info("Setting book description");
             book.setDesc(desc);
         }
 
         String excerpt = bookUtil.checkForExcerpt(jsonObject);
         if (!excerpt.isEmpty()) {
+            logger.info("Setting book excerpt");
             book.setExcerpt(excerpt);
         }
 
         if (jsonObject.containsKey("covers")) {
+            logger.info("Setting book cover");
             book.setCover(jsonObject.getJsonArray("covers").get(0).toString());
         }
         return book;

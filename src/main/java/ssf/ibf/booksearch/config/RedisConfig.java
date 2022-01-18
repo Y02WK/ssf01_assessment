@@ -3,7 +3,6 @@ package ssf.ibf.booksearch.config;
 import static ssf.ibf.booksearch.constants.Constants.REDIS_TEMPLATE;
 
 import java.util.Optional;
-import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -16,8 +15,6 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
 public class RedisConfig {
-    private final Logger logger = Logger.getLogger(RedisConfig.class.getName());
-
     @Value("${spring.redis.host}")
     private String redisHost;
 

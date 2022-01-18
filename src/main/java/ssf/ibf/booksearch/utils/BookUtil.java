@@ -23,6 +23,7 @@ public class BookUtil {
                 }
             }
         }
+        logger.info("Book Description: " + desc);
         return desc;
     }
 
@@ -30,8 +31,10 @@ public class BookUtil {
         if (jsonObj.containsKey("excerpts") && jsonObj.getJsonArray("excerpts").size() >= 1) {
             JsonArray excerpts = jsonObj.getJsonArray("excerpts");
             JsonObject firstExcerpt = excerpts.getJsonObject(0);
+            logger.info("Book Excerpt: " + firstExcerpt.getString("excerpt"));
             return firstExcerpt.getString("excerpt");
         }
+        logger.info("Book excerpt not found");
         return "";
     }
 }
