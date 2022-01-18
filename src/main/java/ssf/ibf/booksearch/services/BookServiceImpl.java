@@ -91,13 +91,14 @@ public class BookServiceImpl implements BookService {
     }
 
     private Book convertToBook(JsonObject jsonObject) {
-        logger.info(jsonObject.toString());
         Book book = new Book();
         book.setTitle(jsonObject.getString("title"));
 
-        if (jsonObject.containsKey("description")) {
-            book.setDesc(jsonObject.getString("description"));
+        String desc = bookUtil.checkForDesc(jsonObject);
+        if (!desc.isEmpty()) {
+            book.setDesc(desc);
         }
+
         if (jsonObject.containsKey("excerpts") && jsonObject.getJsonArray("excerpts").size() > 1) {
             JsonArray excerpts = jsonObject.getJsonArray("excerpts");
             JsonObject firstExcerpt = excerpts.getJsonObject(0);

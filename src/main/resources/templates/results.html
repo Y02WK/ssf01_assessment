@@ -15,9 +15,10 @@
   <body>
     <h1 data-th-text="|Search result for '${searchQuery}'|"></h1>
     <ol>
-      <li data-th-each="book : ${results}">
+      <li data-th-if="${results.size() > 0}" data-th-each="book : ${results}">
         <a data-th-href="${book.worksId}" data-th-text="${book.title}"></a>
       </li>
+      <p data-th-if="${results.size() == 0}">NO RESULTS FOUND!</p>
     </ol>
     <a href="/" class="btn btn-dark m-2" role="button">Back to home</a>
   </body>
