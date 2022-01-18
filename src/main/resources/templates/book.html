@@ -20,25 +20,24 @@
             <div class="col-8 justify-content-end">
                 <div>
                     <p class="h4">
-                        <span class="text-bliss">Title: &nbsp;</span>
+                        <span class="text-bliss">Title:&nbsp;</span>
                         <span class="text-muted" data-th-text="${book.title}"></span>
                     </p>
                     <p data-th-if="${book.desc != 'NOT_FOUND'}">
-                        <span class="h5 text-bliss">Description: &nbsp;</span>
+                        <span class="h5 text-bliss">Description:&nbsp;</span>
                         <span class="text-muted" data-th-text="${book.desc}"></span>
                     </p>
                     <p class="text-muted" data-th-if="${book.desc == 'NOT_FOUND'}"><span
                             class="h5 text-bliss">Description:
                             &nbsp;</span> No description found!</p>
                     <p data-th-if="${book.excerpt != 'NOT_FOUND'}">
-                        <span class="h5 text-bliss">Excerpt: &nbsp;</span>
+                        <span class="h5 text-bliss">Excerpt:&nbsp;</span>
                         <span class="text-muted" data-th-text="${book.excerpt}"></span>
                     </p>
                     <p class="text-muted" data-th-if="${book.excerpt == 'NOT_FOUND'}"><span
-                            class="h5 text-bliss">Excerpt:
-                            &nbsp;</span>No excerpt found!</p>
+                            class="h5 text-bliss">Excerpt:&nbsp;</span>No excerpt found!</p>
                     <p>
-                        <span class="h6 text-bliss">Cached: &nbsp;</span>
+                        <span class="h6 text-bliss">Cached:&nbsp;</span>
                         <span class="text-muted" data-th-text="${book.cached}"></span>
                     </p>
                 </div>
