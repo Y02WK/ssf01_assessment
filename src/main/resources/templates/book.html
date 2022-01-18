@@ -10,15 +10,15 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
-    <title>Book Result</title>
+    <title>Detailed Book View</title>
   </head>
   <body>
-    <h1 data-th-text="|Search result for '${searchQuery}'|"></h1>
-    <ul>
-      <li data-th-each="book : ${results}">
-        <a data-th-href="${book.worksId}" data-th-text="${book.title}"></a>
-      </li>
-    </ul>
-    <a href="/" class="btn btn-dark m-2" role="button">Back to home</a>
+    <p data-th-text="|Title: ${book.title}|"></p>
+    <p data-th-text="|Description: ${book.desc}|"></p>
+    <p data-th-text="|Excerpt: ${book.excerpt}|"></p>
+    <p
+      data-th-if="${book.isCached != null}"
+      data-th-text="|Cached: ${book.isCached}|"
+    ></p>
   </body>
 </html>

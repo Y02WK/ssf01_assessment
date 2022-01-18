@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ssf.ibf.booksearch.models.QueryResult;
-import ssf.ibf.booksearch.services.BookService;
+import ssf.ibf.booksearch.services.BookServiceImpl;
 
 @Controller
 @RequestMapping(path = "/search", produces = MediaType.TEXT_HTML_VALUE)
 public class SearchController {
 
     @Autowired
-    private BookService bookService;
+    private BookServiceImpl bookService;
 
     @GetMapping
     public String searchBooks(@RequestParam(name = "title") String searchQuery, Model model) {

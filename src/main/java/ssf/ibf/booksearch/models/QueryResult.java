@@ -9,7 +9,7 @@ public class QueryResult {
     public static QueryResult create(JsonObject jsonObject) {
         final QueryResult result = new QueryResult();
         result.setTitle(jsonObject.getString("title"));
-        result.setWorksId(jsonObject.getString("key"));
+        result.setWorksId(jsonObject.getString("key").replace("works", "book"));
         return result;
     }
 
