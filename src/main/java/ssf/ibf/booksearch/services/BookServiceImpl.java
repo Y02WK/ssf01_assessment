@@ -60,7 +60,6 @@ public class BookServiceImpl implements BookService {
                     .fromUriString(BOOK_ENDPOINT)
                     .pathSegment(searchTerm + ".json")
                     .toUriString();
-            logger.info(url);
         } else if (type == SEARCH) {
             url = UriComponentsBuilder
                     .fromUriString(SEARCH_ENDPOINT)
@@ -99,11 +98,12 @@ public class BookServiceImpl implements BookService {
             book.setDesc(desc);
         }
 
-        if (jsonObject.containsKey("excerpts") && jsonObject.getJsonArray("excerpts").size() > 1) {
-            JsonArray excerpts = jsonObject.getJsonArray("excerpts");
-            JsonObject firstExcerpt = excerpts.getJsonObject(0);
-            book.setExcerpt(firstExcerpt.getString("excerpt"));
+        String excerpt = bookUtil.checkForExcerpt(jsonObject);
+        if (!excerpt.isEmpty()) {
+            book.setExcerpt(excerpt);
         }
+
+        book.setCover(jsonObject.getJsonArray("covers").get(0).toString());
         return book;
     }
 }

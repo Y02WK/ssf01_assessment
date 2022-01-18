@@ -25,6 +25,7 @@ public class BookController {
     public String getBookById(@PathVariable("worksID") String worksID, Model model) {
         try {
             Book book = bookService.getBook(worksID);
+            model.addAttribute("worksID", worksID);
             model.addAttribute("book", book);
             return "book";
         } catch (IOException e) {

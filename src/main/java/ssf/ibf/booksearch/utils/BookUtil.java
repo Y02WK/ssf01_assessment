@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import org.springframework.stereotype.Component;
 
+import jakarta.json.JsonArray;
 import jakarta.json.JsonObject;
 
 @Component
@@ -23,5 +24,15 @@ public class BookUtil {
             }
         }
         return desc;
+    }
+
+    public String checkForExcerpt(JsonObject jsonObj) {
+        if (jsonObj.containsKey("excerpts") && jsonObj.getJsonArray("excerpts").size() >= 1) {
+            JsonArray excerpts = jsonObj.getJsonArray("excerpts");
+            logger.info("LOOK HERE" + excerpts.toString());
+            JsonObject firstExcerpt = excerpts.getJsonObject(0);
+            return firstExcerpt.getString("excerpt");
+        }
+        return "";
     }
 }

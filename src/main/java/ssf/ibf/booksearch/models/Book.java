@@ -2,15 +2,17 @@ package ssf.ibf.booksearch.models;
 
 public class Book {
     private String title;
-    private String desc;
-    private String excerpt;
-    private boolean isCached = false;
+    private String desc = "NOT_FOUND";
+    private String excerpt = "NOT_FOUND";
+    private String cover = "NOT_FOUND";
+    private boolean cached = false;
 
     public Book(String[] bookParams) {
         this.title = bookParams[0];
         this.desc = bookParams[1];
         this.excerpt = bookParams[2];
-        this.isCached = true;
+        this.cover = bookParams[3];
+        this.cached = true;
     }
 
     public Book() {
@@ -40,20 +42,24 @@ public class Book {
         this.excerpt = excerpt;
     }
 
-    public boolean isIsCached() {
-        return this.isCached;
+    public boolean isCached() {
+        return this.cached;
     }
 
-    public boolean getIsCached() {
-        return this.isCached;
+    public void setIsCached(boolean cached) {
+        this.cached = cached;
     }
 
-    public void setIsCached(boolean isCached) {
-        this.isCached = isCached;
+    public String getCover() {
+        return this.cover;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
     }
 
     @Override
     public String toString() {
-        return String.join("|", this.title, this.desc, this.excerpt);
+        return String.join("|", this.title, this.desc, this.excerpt, this.cover);
     }
 }
