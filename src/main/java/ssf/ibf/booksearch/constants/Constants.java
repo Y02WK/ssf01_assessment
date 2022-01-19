@@ -23,6 +23,11 @@ public class Constants {
     public final static String NOT_FOUND = "NOT_FOUND";
 
     // for BookUtil
+    public final static Integer RCS_LIMIT = 10;
     public final static String DESC_ERROR = "No description found! \u2639";
     public final static String EXCRP_ERROR = "No excerpt found! \u2639";
+    public final static String TITLE_ERROR = "No title found! \u2639";
+    public final static String[] DESC_KEYS = { "description", "value" };
+    public final static String[] EXCRP_KEYS = { "excerpts", "excerpt", "value" };
+    public final static String[] TITLE_KEYS = { "title", "value" };
 }

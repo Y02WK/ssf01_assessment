@@ -1,7 +1,7 @@
 package ssf.ibf.booksearch.utils;
 
-import static ssf.ibf.booksearch.constants.Constants.DESC_ERROR;
 import static ssf.ibf.booksearch.constants.Constants.EXCRP_ERROR;
+import static ssf.ibf.booksearch.constants.Constants.RCS_LIMIT;
 
 import org.springframework.stereotype.Component;
 
@@ -12,89 +12,50 @@ import jakarta.json.JsonValue.ValueType;
 
 @Component
 public class BookUtil {
-
-    public String getDesc(JsonObject jsonObject) {
-        return getDesc(jsonObject, 0);
+    public String getDetails(JsonObject jsonObject, String[] keyArray, String defaultError) {
+        return getDetails(jsonObject, keyArray, defaultError, 0);
     }
 
-    private String getDesc(JsonObject jsonObj, Integer count) {
-        if (count == 10) {
-            return DESC_ERROR;
+    // method to handle JsonObject
+    private String getDetails(JsonObject jsonObject,
+            String[] keyArray,
+            String defaultError,
+            Integer count) {
+
+        // base case #1: if recursion count hits 10
+        if (count == RCS_LIMIT) {
+            return defaultError;
         }
+
         ValueType valueType = null;
         String key = null;
 
-        if (jsonObj.containsKey("description")) {
-            valueType = jsonObj.get("description").getValueType();
-            key = "description";
-        } else if (jsonObj.containsKey("value")) {
-            valueType = jsonObj.get("value").getValueType();
-            key = "value";
-        }
-
-        if (valueType == ValueType.STRING) {
-            return jsonObj.getString(key);
-        } else if (valueType == ValueType.OBJECT) {
-            return getDesc(jsonObj.getJsonObject(key), count + 1);
-        } else if (valueType == ValueType.ARRAY) {
-            return getDesc(jsonObj.getJsonArray(key), count + 1);
-        } else {
-            return DESC_ERROR;
-        }
-    }
-
-    private String getDesc(JsonArray jsonArray, Integer count) {
-        if (jsonArray.size() >= 1 && count < 10) {
-            for (JsonValue obj : jsonArray) {
-                String excerpt = getDesc((JsonObject) obj, count + 1);
-                if (!excerpt.isEmpty()) {
-                    return excerpt;
-                }
+        for (String s : keyArray) {
+            if (jsonObject.containsKey(s)) {
+                valueType = jsonObject.get(s).getValueType();
+                key = s;
             }
         }
-        return DESC_ERROR;
-    }
-
-    public String getExcerpt(JsonObject jsonObj) {
-        return getExcerpt(jsonObj, 0);
-    }
-
-    // recursive implementation to get excerpt
-    private String getExcerpt(JsonObject jsonObj, Integer count) {
-        if (count == 10) {
-            return EXCRP_ERROR;
-        }
-
-        ValueType valueType = null;
-        String key = null;
-
-        if (jsonObj.containsKey("excerpt")) {
-            valueType = jsonObj.get("excerpt").getValueType();
-            key = "excerpt";
-        } else if (jsonObj.containsKey("excerpts")) {
-            valueType = jsonObj.get("excerpts").getValueType();
-            key = "excerpts";
-        } else if (jsonObj.containsKey("value")) {
-            valueType = jsonObj.get("value").getValueType();
-            key = "value";
-        }
-
+        // Base case #2: String value found
         if (valueType == ValueType.STRING) {
-            return jsonObj.getString(key);
+            return jsonObject.getString(key);
         } else if (valueType == ValueType.OBJECT) {
-            return getExcerpt(jsonObj.getJsonObject(key), count + 1);
+            return getDetails(jsonObject.getJsonObject(key), keyArray, defaultError, count + 1);
         } else if (valueType == ValueType.ARRAY) {
-            return getExcerpt(jsonObj.getJsonArray(key), count + 1);
+            return getDetails(jsonObject.getJsonArray(key), keyArray, defaultError, count + 1);
+            // Base case #3: Nothing found
         } else {
-            return EXCRP_ERROR;
+            return defaultError;
         }
     }
 
-    private String getExcerpt(JsonArray jsonArray, Integer count) {
+    // method to handle JsonArray
+    private String getDetails(JsonArray jsonArray, String[] keyArray,
+            String defaultError, Integer count) {
         if (jsonArray.size() >= 1 && count < 10) {
             for (JsonValue obj : jsonArray) {
-                String excerpt = getExcerpt((JsonObject) obj);
-                if (!excerpt.isEmpty()) {
+                String excerpt = getDetails((JsonObject) obj, keyArray, defaultError, count + 1);
+                if (!excerpt.equals(defaultError)) {
                     return excerpt;
                 }
             }

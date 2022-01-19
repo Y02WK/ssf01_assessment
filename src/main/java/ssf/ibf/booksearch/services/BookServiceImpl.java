@@ -2,10 +2,16 @@ package ssf.ibf.booksearch.services;
 
 import static ssf.ibf.booksearch.constants.Constants.BOOK;
 import static ssf.ibf.booksearch.constants.Constants.BOOK_ENDPOINT;
+import static ssf.ibf.booksearch.constants.Constants.DESC_ERROR;
+import static ssf.ibf.booksearch.constants.Constants.DESC_KEYS;
+import static ssf.ibf.booksearch.constants.Constants.EXCRP_ERROR;
+import static ssf.ibf.booksearch.constants.Constants.EXCRP_KEYS;
 import static ssf.ibf.booksearch.constants.Constants.SEARCH;
 import static ssf.ibf.booksearch.constants.Constants.SEARCH_ENDPOINT;
 import static ssf.ibf.booksearch.constants.Constants.SEARCH_FIELDS;
 import static ssf.ibf.booksearch.constants.Constants.SEARCH_LIMIT;
+import static ssf.ibf.booksearch.constants.Constants.TITLE_ERROR;
+import static ssf.ibf.booksearch.constants.Constants.TITLE_KEYS;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -91,13 +97,13 @@ public class BookServiceImpl implements BookService {
 
     private Book convertToBook(JsonObject jsonObject) {
         Book book = new Book();
-        book.setTitle(jsonObject.getString("title"));
+        book.setTitle(bookUtil.getDetails(jsonObject, TITLE_KEYS, TITLE_ERROR));
 
         logger.info("Setting book description");
-        book.setDesc(bookUtil.getDesc(jsonObject));
+        book.setDesc(bookUtil.getDetails(jsonObject, DESC_KEYS, DESC_ERROR));
 
         logger.info("Setting book excerpt");
-        book.setExcerpt(bookUtil.getExcerpt(jsonObject));
+        book.setExcerpt(bookUtil.getDetails(jsonObject, EXCRP_KEYS, EXCRP_ERROR));
 
         if (jsonObject.containsKey("covers")) {
             logger.info("Setting book cover");
