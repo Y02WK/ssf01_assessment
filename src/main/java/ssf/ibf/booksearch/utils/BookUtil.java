@@ -6,6 +6,8 @@ import org.springframework.stereotype.Component;
 
 import jakarta.json.JsonArray;
 import jakarta.json.JsonObject;
+import jakarta.json.JsonValue;
+import jakarta.json.JsonValue.ValueType;
 
 @Component
 public class BookUtil {
@@ -31,15 +33,39 @@ public class BookUtil {
         return desc;
     }
 
-    public String checkForExcerpt(JsonObject jsonObj) {
-        if (jsonObj.containsKey("excerpts") && jsonObj.getJsonArray("excerpts").size() >= 1) {
-            try {
-                JsonArray excerpts = jsonObj.getJsonArray("excerpts");
-                JsonObject firstExcerpt = excerpts.getJsonObject(0);
-                logger.info("Book Excerpt: " + firstExcerpt.getString("excerpt"));
-                return firstExcerpt.getString("excerpt");
-            } catch (ClassCastException e) {
-                logger.info("Book excerpt not found");
+    // recursive implementation to get excerpt
+    public String getExcerpt(JsonObject jsonObj) {
+        ValueType value = null;
+        String key = null;
+
+        if (jsonObj.containsKey("excerpt")) {
+            value = jsonObj.get("excerpt").getValueType();
+            key = "excerpt";
+        } else if (jsonObj.containsKey("excerpts")) {
+            value = jsonObj.get("excerpts").getValueType();
+            key = "excerpts";
+        } else if (jsonObj.containsKey("value")) {
+            value = jsonObj.get("value").getValueType();
+            key = "value";
+        }
+
+        if (value == ValueType.STRING) {
+            return jsonObj.getString(key);
+        } else if (value == ValueType.OBJECT) {
+            return getExcerpt(jsonObj.getJsonObject(key));
+        } else if (value == ValueType.ARRAY) {
+            return getExcerpt(jsonObj.getJsonArray(key));
+        } else {
+            return "";
+        }
+    }
+
+    private String getExcerpt(JsonArray jsonArray) {
+        if (jsonArray.size() >= 1) {
+            for (JsonValue obj : jsonArray) {
+                if (!getExcerpt((JsonObject) obj).isEmpty()) {
+                    return getExcerpt((JsonObject) obj);
+                }
             }
         }
         return "";

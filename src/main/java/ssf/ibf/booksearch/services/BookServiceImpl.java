@@ -99,7 +99,7 @@ public class BookServiceImpl implements BookService {
             book.setDesc(desc);
         }
 
-        String excerpt = bookUtil.checkForExcerpt(jsonObject);
+        String excerpt = bookUtil.getExcerpt(jsonObject);
         if (!excerpt.isEmpty()) {
             logger.info("Setting book excerpt");
             book.setExcerpt(excerpt);
