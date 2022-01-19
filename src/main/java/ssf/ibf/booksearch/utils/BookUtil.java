@@ -12,25 +12,25 @@ public class BookUtil {
 
     // recursive implementation to get description
     public String getDesc(JsonObject jsonObj) {
-        ValueType value = null;
+        ValueType valueType = null;
         String key = null;
 
         if (jsonObj.containsKey("description")) {
-            value = jsonObj.get("description").getValueType();
+            valueType = jsonObj.get("description").getValueType();
             key = "description";
         } else if (jsonObj.containsKey("value")) {
-            value = jsonObj.get("value").getValueType();
+            valueType = jsonObj.get("value").getValueType();
             key = "value";
         }
 
-        if (value == ValueType.STRING) {
+        if (valueType == ValueType.STRING) {
             return jsonObj.getString(key);
-        } else if (value == ValueType.OBJECT) {
+        } else if (valueType == ValueType.OBJECT) {
             return getDesc(jsonObj.getJsonObject(key));
-        } else if (value == ValueType.ARRAY) {
+        } else if (valueType == ValueType.ARRAY) {
             return getDesc(jsonObj.getJsonArray(key));
         } else {
-            return "";
+            return "No description found! \u2639";
         }
     }
 
@@ -43,33 +43,33 @@ public class BookUtil {
                 }
             }
         }
-        return "";
+        return "No description found! \u2639";
     }
 
     // recursive implementation to get excerpt
     public String getExcerpt(JsonObject jsonObj) {
-        ValueType value = null;
+        ValueType valueType = null;
         String key = null;
 
         if (jsonObj.containsKey("excerpt")) {
-            value = jsonObj.get("excerpt").getValueType();
+            valueType = jsonObj.get("excerpt").getValueType();
             key = "excerpt";
         } else if (jsonObj.containsKey("excerpts")) {
-            value = jsonObj.get("excerpts").getValueType();
+            valueType = jsonObj.get("excerpts").getValueType();
             key = "excerpts";
         } else if (jsonObj.containsKey("value")) {
-            value = jsonObj.get("value").getValueType();
+            valueType = jsonObj.get("value").getValueType();
             key = "value";
         }
 
-        if (value == ValueType.STRING) {
+        if (valueType == ValueType.STRING) {
             return jsonObj.getString(key);
-        } else if (value == ValueType.OBJECT) {
+        } else if (valueType == ValueType.OBJECT) {
             return getExcerpt(jsonObj.getJsonObject(key));
-        } else if (value == ValueType.ARRAY) {
+        } else if (valueType == ValueType.ARRAY) {
             return getExcerpt(jsonObj.getJsonArray(key));
         } else {
-            return "";
+            return "No excerpt found! \u2639";
         }
     }
 
@@ -82,6 +82,6 @@ public class BookUtil {
                 }
             }
         }
-        return "";
+        return "No excerpt found! \u2639";
     }
 }

@@ -1,12 +1,10 @@
 package ssf.ibf.booksearch.models;
 
-import static ssf.ibf.booksearch.constants.Constants.NOT_FOUND;
-
 public class Book {
     private String title;
-    private String desc = NOT_FOUND;
-    private String excerpt = NOT_FOUND;
-    private String cover = NOT_FOUND;
+    private String desc;
+    private String excerpt;
+    private String cover;
     private boolean cached = false;
 
     public Book(String[] bookParams) {
