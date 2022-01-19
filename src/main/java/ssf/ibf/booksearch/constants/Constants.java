@@ -21,4 +21,8 @@ public class Constants {
 
     // for use in Book model
     public final static String NOT_FOUND = "NOT_FOUND";
+
+    // for BookUtil
+    public final static String DESC_ERROR = "No description found! \u2639";
+    public final static String EXCRP_ERROR = "No excerpt found! \u2639";
 }
