@@ -1,6 +1,9 @@
 package ssf.ibf.booksearch.constants;
 
-public class Constants {
+public final class Constants {
+    private Constants() {
+    }
+
     // for Redis
     public final static String REDIS_TEMPLATE = "REDIS_TEMPLATE";
 
