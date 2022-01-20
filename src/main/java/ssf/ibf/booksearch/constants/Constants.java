@@ -1,6 +1,7 @@
 package ssf.ibf.booksearch.constants;
 
 public final class Constants {
+    // prevent instantiation
     private Constants() {
     }
 
@@ -21,9 +22,6 @@ public final class Constants {
 
     // for joining and splitting books data stored in Redis
     public final static String DELIMITER = "\\|";
-
-    // for use in Book model
-    public final static String NOT_FOUND = "NOT_FOUND";
 
     // for BookUtil
     public final static Integer RCS_LIMIT = 10;
